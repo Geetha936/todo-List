@@ -3,11 +3,8 @@ package com.todolist.demo.Services4;
 import com.todolist.demo.Models.Task;
 import com.todolist.demo.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,9 +14,12 @@ public class TodoListService {
     public TodoListService(TaskRepository taskRepository){
         this.taskRepository=taskRepository;
     }
-    public Page<Task> getTasks(Pageable pageable ) {
+    public List<Task> getTasks() {
+        return taskRepository.findAll();
+    }
 
-        return taskRepository.findAll(pageable);
+    public List<Task> getSpecificTasks(Long id){
+        return taskRepository.findTasksByListId(id);
     }
     public void addNewTask(Task task){
         taskRepository.save(task);

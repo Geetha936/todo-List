@@ -3,11 +3,14 @@ package com.todolist.demo.Controller;
 import com.todolist.demo.Models.ListTasks;
 import com.todolist.demo.Services4.ListNameServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/tasklist/")
 public class ListNameController {
@@ -19,5 +22,9 @@ public class ListNameController {
     @PostMapping("add/")
     public void addnewlist(@RequestBody ListTasks listTasks){
         listNameServices.setTaskList(listTasks);
+    }
+    @GetMapping("get")
+    public List<ListTasks> gettaksList(){
+        return listNameServices.getTaskList();
     }
 }

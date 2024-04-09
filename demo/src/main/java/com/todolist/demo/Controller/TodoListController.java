@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping(path = "api/")
 public class TodoListController {
@@ -19,10 +19,8 @@ public class TodoListController {
         this.todoListService=todoListService;
     }
     @GetMapping("get/task")
-    public Page<Task> getTasks(@RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size,
-                               @RequestParam(defaultValue = "id") String sortBy){
-        return todoListService.getTasks(PageRequest.of(page,size, Sort.by(sortBy)));
+    public List<Task> getTasks(){
+        return todoListService.getTasks();
     }
     @PostMapping("add/task/")
     public void createTask(@RequestBody Task task){
@@ -40,5 +38,9 @@ public class TodoListController {
     @DeleteMapping("delete/task")
     public void deleteTask(@RequestParam Long id){
         todoListService.deleteTask(id);
+    }
+    @GetMapping("get/specific/task")
+    public List<Task> getSpecificTask(@RequestParam Long id){
+        return todoListService.getSpecificTasks(id);
     }
 }

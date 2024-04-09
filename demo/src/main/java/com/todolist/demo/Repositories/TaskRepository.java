@@ -14,8 +14,7 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task , Long > {
-    Page<Task> findAll(Pageable pageable);
     @Modifying
     @Query("SELECT t FROM Task t WHERE t.ListID IN (:List_Id)")
-    List<Task> findTasksByName(@Param("List_Id") Long Id);
+    List<Task> findTasksByListId(@Param("List_Id") Long Id);
 }
